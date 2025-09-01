@@ -18,7 +18,7 @@ config_setting = {
 # WanDB 초기화
 run = wandb.init(
     project = "FinSight-OCR" ,
-    name    = "junoh_yolov8n_0901_1" ,
+    name    = "junoh(4060)_yolov8n_0901_2" ,
     config  = config_setting
 )
 
