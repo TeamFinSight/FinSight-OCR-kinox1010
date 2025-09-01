@@ -104,12 +104,13 @@ def process_directory(json_dir , output_dir) :
 if __name__ == "__main__" :
     # 원본 ResNet JSON 라벨링 데이터가 있는 폴더 주소
     
+    # wsl 리눅스 환경에서 CUDA 를 돌릴 예정이기에 경로는 wsl 리눅스 경로에 맞추어 저장됨
     # Train 데이터에 대한 라벨링데이터 주소 및 저장 주소
-    # json_origin_directory  = "D:/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Training/02.라벨링데이터/TL_금융_1.은행_1-1.신고서"
-    # yolo_convert_directory = "D:/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Training/03.YOLO용 라벨링데이터"
+    # json_origin_directory  = "/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Training/02.라벨링데이터/TL_금융_1.은행_1-1.신고서"
+    # yolo_convert_directory = "/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Training/03.YOLO용 라벨링데이터"
     
     # Valid 데이터에 대한 라벨링데이터 주소 및 저장 주소
-    json_origin_directory  = "D:/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Validation/02.라벨링데이터/VL_금융_1.은행_1-1.신고서"
-    yolo_convert_directory = "D:/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Validation/03.YOLO용 라벨링데이터"
+    json_origin_directory  = "/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Validation/02.라벨링데이터/VL_금융_1.은행_1-1.신고서"
+    yolo_convert_directory = "/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/Validation/03.YOLO용 라벨링데이터"
     
     process_directory(json_origin_directory , yolo_convert_directory)
