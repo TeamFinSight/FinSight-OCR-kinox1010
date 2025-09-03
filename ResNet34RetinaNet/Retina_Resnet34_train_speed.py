@@ -21,18 +21,18 @@ def copy_dataset_to_local():
     
     # 원본 경로 (Windows 마운트)
     original_paths = {
-        'train_img': '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Training/01.원천데이터/TS_금융_1.은행_1-1.신고서',
-        'train_ann': '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Training/02.라벨링데이터/TL_금융_1.은행_1-1.신고서',
-        'valid_img': '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Validation/01.원천데이터/VS_금융_1.은행_1-1.신고서',
-        'valid_ann': '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Validation/02.라벨링데이터/VL_금융_1.은행_1-1.신고서'
+        'train_img' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Training/01.원천데이터/TS_금융_1.은행_1-1.신고서',
+        'train_ann' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Training/02.라벨링데이터/TL_금융_1.은행_1-1.신고서',
+        'valid_img' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Validation/01.원천데이터/VS_금융_1.은행_1-1.신고서',
+        'valid_ann' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Validation/02.라벨링데이터/VL_금융_1.은행_1-1.신고서'
     }
     
     # 로컬 경로 (/tmp는 메모리 파일시스템)
     local_paths = {
-        'train_img': '/tmp/dataset/train/images',
-        'train_ann': '/tmp/dataset/train/annotations', 
-        'valid_img': '/tmp/dataset/valid/images',
-        'valid_ann': '/tmp/dataset/valid/annotations'
+        'train_img' : '/tmp/dataset/train/images',
+        'train_ann' : '/tmp/dataset/train/annotations', 
+        'valid_img' : '/tmp/dataset/valid/images',
+        'valid_ann' : '/tmp/dataset/valid/annotations'
     }
     
     print("데이터셋을 고속 로컬 스토리지로 복사 중...")
@@ -158,16 +158,16 @@ class UltraFastDataset(Dataset):
         return data['image'], target
 
 # --- 3. 설정 및 학습 ---
-DATA_TYPE_MAP = {0: 'korean', 1: 'english', 2: 'number', 3: 'mixed_special'}
+DATA_TYPE_MAP    = {0: 'korean', 1: 'english', 2: 'number', 3: 'mixed_special'}
 SEMANTIC_CLASSES = ['korean', 'english', 'number', 'mixed_special']
 
 WANDB_PROJECT  = "FinSight-OCR"
-WANDB_RUN_NAME = "junoh-ResNet34+Retina-0903-1" # --- [수정] ---
+WANDB_RUN_NAME = "junoh-ResNet34+Retina-0903-3" # --- [수정] ---
 
 EPOCHS              = 10
 BATCH_SIZE          = 12
 LEARNING_RATE       = 2e-4
-NUM_WORKERS         = 4
+NUM_WORKERS         = 0
 LOG_EVERY_N_STEPS   = 10
 VALIDATION_INTERVAL = 1 # --- [추가] --- 검증 주기 (매 에폭마다)
 
@@ -348,13 +348,24 @@ def main():
             except Exception as e:
                 print(f"성능 지표 계산 중 오류 발생: {e}")
 
+        # --- [수정] 매 에폭 종료 시 모델 저장 ---
+        epoch_save_path = f'/tmp/retina_model_epoch_{epoch+1}.pth'
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': avg_loss,
+        }, epoch_save_path)
+        print(f"Epoch {epoch+1} 모델 저장됨: {epoch_save_path}")
+        # --- [수정] 끝 ---
+
         if (epoch + 1) % 10 == 0:
             torch.cuda.empty_cache()
     
     wandb.finish()
     print("학습 완료!")
     print(f"최고 검증 mAP: {best_map:.4f}")
-    print(f"모델 저장 위치: /tmp/best_retina_model_*.pth")
+    print(f"모델 저장 위치: /tmp/best_retina_model_*.pth 및 /tmp/retina_model_epoch_*.pth")
 
 if __name__ == "__main__":
     main()
