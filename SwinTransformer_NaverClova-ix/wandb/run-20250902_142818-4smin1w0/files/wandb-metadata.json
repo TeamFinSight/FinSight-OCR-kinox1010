@@ -1,0 +1,39 @@
+{
+  "os": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.18",
+  "startedAt": "2025-09-02T05:28:18.821955Z",
+  "program": "/mnt/c/Users/KINOX/Documents/GitHub/FinSight-OCR-kinox1010/SwinTransformer_NaverClova-ix/Donut_train.py",
+  "codePath": "SwinTransformer_NaverClova-ix/Donut_train.py",
+  "codePathLocal": "Donut_train.py",
+  "git": {
+    "remote": "https://github.com/TeamFinSight/FinSight-OCR-kinox1010.git",
+    "commit": "9eb7794fd8175f769b6fff2f92893f540586bd53"
+  },
+  "email": "kinox1010@gmail.com",
+  "root": "/mnt/c/Users/KINOX/Documents/GitHub/FinSight-OCR-kinox1010/SwinTransformer_NaverClova-ix",
+  "host": "DESKTOP-H03BM8F",
+  "executable": "/home/junoh/miniconda3/envs/torch_dount_env/bin/python",
+  "cpu_count": 8,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1081101176832",
+      "used": "34388586496"
+    }
+  },
+  "memory": {
+    "total": "33500094464"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "memoryTotal": "8585740288",
+      "architecture": "Ada",
+      "uuid": "GPU-3326e936-bef8-bcd0-08ef-3ea3b26eeabb"
+    }
+  ],
+  "cudaVersion": "12.9",
+  "writerId": "nzvkqcob3w1aih2wojxtkue81ehhn3zp"
+}
