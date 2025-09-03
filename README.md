@@ -65,3 +65,12 @@
 - 데이터를 픽클화시키고 미리 RAM 에 캐싱을 진행하며 빠른 학습 진행
 - 메인 컴퓨터 기준 1 Step 당 약 45 ~ 120 초였던 학습 속도를 10 ~ 17 초로 줄임, 1 Epochs 당 약 2200 초가 나옴
   > Epochs = 10 | Batch_size = 12 | Learning_rate = 2e-4 | Num_workers = 4
+
+## 9월 3일 1회차
+![ResNet34+Retina](https://kinox0924.notion.site/image/attachment%3Aad5f5f36-7027-40af-85eb-2b01eccfcc34%3Aimage.png?table=block&id=26392c5a-6f62-80ac-94a7-c30c02501b75&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
+![ResNet34+Retina](https://kinox0924.notion.site/image/attachment%3A65524f5f-68fe-4ace-9355-4512e2c9a13e%3Aimage.png?table=block&id=26392c5a-6f62-8026-a6a2-c52b76fb63ef&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
+- 메인 컴퓨터에서 진행된 ResNet34 + Retina 모델 학습이 5 Epochs 학습 진행 중 중단됨
+- 중단된 원인은 공유 메모리 부족으로 인한 것으로 WSL 우분투 환경과 겹쳐서 발생된 원인으로 예상됨
+- 원인 해결을 위해서는 NUM_WORKERS 의 수를 4 에서 0 으로 축소 시켜야하며 축소 시 Step 당 학습 속도의 저하가 예상되나 안정적인 학습을 위해서 필요한 조치임
+- 다음 학습때는 NUM_WORKERS 의 수를 0 으로 변경 후 학습 진행 예정
+- 마지막 4 Epochs 를 완료하고 나온 최종 mAP50 점수는 약 0.92 로 확인됨
