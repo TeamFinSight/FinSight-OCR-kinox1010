@@ -91,11 +91,11 @@
 ## 9월 4일 1회차
 - 학원 컴퓨터에서 하루 동안 학습 진행된 ResNet34 + RetinaNet 모델을 사용하여 객체 탐지 진행
 - 완료된 Epochs 는 3회차 였으며 mAP : 0.69521 , mAP50 : 0.96264 로 확인되었음
-![ResNet34+RetinaNet](https://www.notion.so/image/attachment%3A8a6d8f27-eec8-49e7-9a7e-81d1b2408c74%3Apred_IMG_OCR_6_F_0000113.png?table=block&id=26492c5a-6f62-806e-831b-ef5866030889&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=5c2e5fc4-ce21-4e9d-a4c3-4157193c14c4&cache=v2)
+![ResNet34+RetinaNet](https://www.notion.so/image/attachment%3A36808bfd-a1ab-4b46-a03b-319bdee40cc8%3Aimage.png?table=block&id=26592c5a-6f62-80c5-b6bf-ef26462b83a4&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
 - 모델이 이전에 학습 및 검증하지 않은 서류 이미지를 건네주었을 때의 성능은 매우 저조함
 
 ## 9월 4일 2회차
 - 앞서 동일한 학원 컴퓨터에서 학습 진행된 ResNet34 + RetinaNet 모델을 사용하여 객체 탐지 성능 확인
 - Epochs 는 4회 진행되었으며 mAP : 0.71292 , mAP50 : 0.96003 로 확인됨
-![ResNet34+RetinaNet](https://www.notion.so/image/attachment%3Af7531ba7-2ed5-4c2e-b912-1196db4a258d%3Aimage.png?table=block&id=26492c5a-6f62-802b-b106-fece80e0fee3&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=5c2e5fc4-ce21-4e9d-a4c3-4157193c14c4&cache=v2)
+![ResNet34+RetinaNet](https://www.notion.so/image/attachment%3A7d658aed-2a4a-493d-ad5e-edb1092acc88%3Aimage.png?table=block&id=26592c5a-6f62-808b-9083-e0dc31aa9cf0&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
 - 3 Epochs 때보다는 손글씨 검출 성능은 올라갔지만 라벨링 성능과 전체적으로 검출하는 것은 약함
