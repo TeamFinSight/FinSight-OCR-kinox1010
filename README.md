@@ -14,7 +14,20 @@
 - YOLOv8n , YOLOv8s                  :: ResNet50 + ViTSTR 에서 사용된 라벨링 데이터를 YOLO 의 txt 라벨링 데이터(0~1) 으로 바꾸는 과정에서 문제가 생길 수 있음
 - ResNet50 + DETR(Facebook)          :: DETR(facebook) 은 모델명 그대로 손글씨 탐색 보다는 얼굴 탐지에 특화된 모델임
 - Swin Transformer + Nevar Clova-ix  :: Naver Clova-ix 가 비교적 높은 최신의 무거운 모델로서 프로젝트에 적합하지 않음
-- ResNet34 + Retina                  :: **현재 학습 진행 중**
+- ResNet34 + RetinaNet               :: **메인 컴퓨터에서 학습 진행 중**
+- ResNet18 + RetinaNet               :: **학원 컴퓨터에서 학습 진행 중**
+
+### ResNet18 과 ResNet34 의 차이
+#### ResNet18
+- 18개의 레이어(컨볼루션 + FC) 로 구성되어 있음
+- 임베디드 , 실시간 검출 등 경량 모델이 필요한 경우에 적합함
+
+#### ResNet34
+- 34개의 레이어로 구성되어 있는 네트워크 백본
+- ResNet18 과 ResNet34 모두 기본적으로 2-Layer Residual Block 을 사용하지만, ResNet34 는 블록 수가 더 많아 더 복잡한 특징을 학습할 수 있음
+- ResNet18 보다 더 많은 파라미터를 가지고, 더 복잡한 데이터에 대해 더 높은 표현력을 지님
+- ResNet18 보다 더 높은 정확도를 제공하지만 연산량이 많아서 상대적인 속도가 느림
+- ResNet18 보다 더 높은 성능이 필요한 경우에 적합함
 
 ### 백본(Backborn)
 > 백본은 딥러닝 모델의 핵심 특성 추출기로, 원시 데이터를 입력값으로 받아서 고수준의 특성 맵으로 변환하는 네트워크 부분 말함
@@ -58,8 +71,8 @@
 - 추후 서비스까지 생각한다면 해당 모델로 빠른 시간 내에 서비스 제공이 가능할 지 의문이 듬
 
 ## 9월 3일
-![ResNet34+Retina](https://kinox0924.notion.site/image/attachment%3A9ce3e55f-8f13-44ca-9b58-5a830e1f06aa%3Aimage.png?table=block&id=26392c5a-6f62-8093-b1f9-ed08f848bead&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=1460&userId=&cache=v2)
-- ResNet34 + Retina 객체 탐지 모델로 변경함
+![ResNet34+RetinaNet](https://kinox0924.notion.site/image/attachment%3A9ce3e55f-8f13-44ca-9b58-5a830e1f06aa%3Aimage.png?table=block&id=26392c5a-6f62-8093-b1f9-ed08f848bead&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=1460&userId=&cache=v2)
+- ResNet34 + RetinaNet 객체 탐지 모델로 변경함
 - 원천 데이터의 전처리 진행 => 지금까지는 거의 날것 이미지 그대로 사용하였음(2480*3508) 따라서 이미지 전처리를 통해 세로 길이 기준 640 까지 비율유지하면서 축소
 - 데이터와 라벨링데이터, 스크립트 파일까지 모두 WSL 우분투 안으로 옮겨서 최대한 I/O 간 병목 현상 축소
 - 데이터를 픽클화시키고 미리 RAM 에 캐싱을 진행하며 빠른 학습 진행
@@ -67,10 +80,22 @@
   > Epochs = 10 | Batch_size = 12 | Learning_rate = 2e-4 | Num_workers = 4
 
 ## 9월 3일 1회차
-![ResNet34+Retina](https://kinox0924.notion.site/image/attachment%3Aad5f5f36-7027-40af-85eb-2b01eccfcc34%3Aimage.png?table=block&id=26392c5a-6f62-80ac-94a7-c30c02501b75&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
-![ResNet34+Retina](https://kinox0924.notion.site/image/attachment%3A65524f5f-68fe-4ace-9355-4512e2c9a13e%3Aimage.png?table=block&id=26392c5a-6f62-8026-a6a2-c52b76fb63ef&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
-- 메인 컴퓨터에서 진행된 ResNet34 + Retina 모델 학습이 5 Epochs 학습 진행 중 중단됨
+![ResNet34+RetinaNet](https://kinox0924.notion.site/image/attachment%3Aad5f5f36-7027-40af-85eb-2b01eccfcc34%3Aimage.png?table=block&id=26392c5a-6f62-80ac-94a7-c30c02501b75&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
+![ResNet34+RetinaNet](https://kinox0924.notion.site/image/attachment%3A65524f5f-68fe-4ace-9355-4512e2c9a13e%3Aimage.png?table=block&id=26392c5a-6f62-8026-a6a2-c52b76fb63ef&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
+- 메인 컴퓨터에서 진행된 ResNet34 + RetinaNet 모델 학습이 5 Epochs 학습 진행 중 중단됨
 - 중단된 원인은 공유 메모리 부족으로 인한 것으로 WSL 우분투 환경과 겹쳐서 발생된 원인으로 예상됨
 - 원인 해결을 위해서는 NUM_WORKERS 의 수를 4 에서 0 으로 축소 시켜야하며 축소 시 Step 당 학습 속도의 저하가 예상되나 안정적인 학습을 위해서 필요한 조치임
 - 다음 학습때는 NUM_WORKERS 의 수를 0 으로 변경 후 학습 진행 예정
 - 마지막 4 Epochs 를 완료하고 나온 최종 mAP50 점수는 약 0.92 로 확인됨
+
+## 9월 4일 1회차
+- 학원 컴퓨터에서 하루 동안 학습 진행된 ResNet34 + RetinaNet 모델을 사용하여 객체 탐지 진행
+- 완료된 Epochs 는 3회차 였으며 mAP : 0.69521 , mAP50 : 0.96264 로 확인되었음
+![ResNet34+RetinaNet](https://www.notion.so/image/attachment%3A8a6d8f27-eec8-49e7-9a7e-81d1b2408c74%3Apred_IMG_OCR_6_F_0000113.png?table=block&id=26492c5a-6f62-806e-831b-ef5866030889&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=5c2e5fc4-ce21-4e9d-a4c3-4157193c14c4&cache=v2)
+- 모델이 이전에 학습 및 검증하지 않은 서류 이미지를 건네주었을 때의 성능은 매우 저조함
+
+## 9월 4일 2회차
+- 앞서 동일한 학원 컴퓨터에서 학습 진행된 ResNet34 + RetinaNet 모델을 사용하여 객체 탐지 성능 확인
+- Epochs 는 4회 진행되었으며 mAP : 0.71292 , mAP50 : 0.96003 로 확인됨
+![ResNet34+RetinaNet](https://www.notion.so/image/attachment%3Af7531ba7-2ed5-4c2e-b912-1196db4a258d%3Aimage.png?table=block&id=26492c5a-6f62-802b-b106-fece80e0fee3&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=5c2e5fc4-ce21-4e9d-a4c3-4157193c14c4&cache=v2)
+- 3 Epochs 때보다는 손글씨 검출 성능은 올라갔지만 라벨링 성능과 전체적으로 검출하는 것은 약함

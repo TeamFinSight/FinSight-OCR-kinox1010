@@ -21,10 +21,10 @@ def copy_dataset_to_local():
     
     # 원본 경로 (Windows 마운트)
     original_paths = {
-        'train_img' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Training/01.원천데이터/TS_금융_1.은행_1-1.신고서',
-        'train_ann' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Training/02.라벨링데이터/TL_금융_1.은행_1-1.신고서',
-        'valid_img' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Validation/01.원천데이터/VS_금융_1.은행_1-1.신고서',
-        'valid_ann' : '/mnt/d/Dataset/OCR 데이터(금융)/OCR 전처리데이터/Validation/02.라벨링데이터/VL_금융_1.은행_1-1.신고서'
+        'train_img' : '/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/Training/01.원천데이터/TS_금융_3.증권_3-2.신청서',
+        'train_ann' : '/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/Training/02.라벨링데이터/TL_금융_3.증권_3-2.신청서',
+        'valid_img' : '/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/Validation/01.원천데이터/VS_금융_3.증권_3-2.신청서',
+        'valid_ann' : '/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/Validation/02.라벨링데이터/VL_금융_3.증권_3-2.신청서'
     }
     
     # 로컬 경로 (/tmp는 메모리 파일시스템)
@@ -162,12 +162,12 @@ DATA_TYPE_MAP    = {0: 'korean', 1: 'english', 2: 'number', 3: 'mixed_special'}
 SEMANTIC_CLASSES = ['korean', 'english', 'number', 'mixed_special']
 
 WANDB_PROJECT  = "FinSight-OCR"
-WANDB_RUN_NAME = "junoh-ResNet34+Retina-0903-3" # --- [수정] ---
+WANDB_RUN_NAME = "junoh-ResNet18+Retina-0905-4060-1" # --- [수정] ---
 
-EPOCHS              = 10
+EPOCHS              = 20
 BATCH_SIZE          = 12
 LEARNING_RATE       = 2e-4
-NUM_WORKERS         = 0
+NUM_WORKERS         = 1
 LOG_EVERY_N_STEPS   = 10
 VALIDATION_INTERVAL = 1 # --- [추가] --- 검증 주기 (매 에폭마다)
 
@@ -176,6 +176,7 @@ def collate_fn(batch):
 
 def main():
     print("=== 초고속 RetinaNet 학습 시작 (성능 지표 포함) ===")
+    torch.multiprocessing.set_sharing_strategy('file_system')
     
     local_paths = copy_dataset_to_local()
     
@@ -193,7 +194,7 @@ def main():
     })
     
     num_classes = len(SEMANTIC_CLASSES) + 1
-    backbone = resnet_fpn_backbone('resnet34', weights='DEFAULT', trainable_layers=3)
+    backbone = resnet_fpn_backbone('resnet18', weights='DEFAULT', trainable_layers=3)
     model = RetinaNet(backbone, num_classes=num_classes).to(device)
     
     optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-4)
@@ -349,7 +350,7 @@ def main():
                 print(f"성능 지표 계산 중 오류 발생: {e}")
 
         # --- [수정] 매 에폭 종료 시 모델 저장 ---
-        epoch_save_path = f'/tmp/retina_model_epoch_{epoch+1}.pth'
+        epoch_save_path = f'/mnt/d/Dataset/프로젝트 모델 임시 저장/ResNet18_Retina_4060/ResNet18_Retina_0905_1-{epoch+1}.pth'
         torch.save({
             'epoch': epoch,
             'model_state_dict': model.state_dict(),

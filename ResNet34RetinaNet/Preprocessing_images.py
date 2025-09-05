@@ -9,16 +9,16 @@ from tqdm import tqdm
 DATASET_TYPE = 'Validation'  # 'valid'로 바꿔서 한번 더 실행해야 합니다.
 
 # 원본 고해상도 이미지와 JSON 라벨이 있는 폴더
-ORIGINAL_IMAGE_DIR = f'/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/{DATASET_TYPE}/01.원천데이터/VS_금융_2.보험_2-1.신청서'
-ORIGINAL_JSON_DIR  = f'/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/{DATASET_TYPE}/02.라벨링데이터/VL_금융_2.보험_2-1.신청서'
+ORIGINAL_IMAGE_DIR = f'/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/{DATASET_TYPE}/01.원천데이터/VS_금융_3.증권_3-2.신청서'
+ORIGINAL_JSON_DIR  = f'/mnt/d/Dataset/OCR 데이터(금융)/01-1.정식개방데이터/{DATASET_TYPE}/02.라벨링데이터/VL_금융_3.증권_3-2.신청서'
 
 # 전처리된 저해상도 이미지와 JSON 라벨을 저장할 새로운 폴더
-PREPROCESSED_IMAGE_DIR = f'/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/{DATASET_TYPE}/01.원천데이터/VS_금융_2.보험_2-1.신청서'
-PREPROCESSED_JSON_DIR  = f'/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/{DATASET_TYPE}/02.라벨링데이터/VL_금융_2.보험_2-1.신청서'
+PREPROCESSED_IMAGE_DIR = f'/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/{DATASET_TYPE}/01.원천데이터/VS_금융_3.증권_3-2.신청서'
+PREPROCESSED_JSON_DIR  = f'/mnt/d/Dataset/OCR 데이터(금융)/전처리된데이터/{DATASET_TYPE}/02.라벨링데이터/VL_금융_3.증권_3-2.신청서'
 
 # 목표 이미지 크기 (긴 쪽을 기준으로 리사이즈)
 # 8GB VRAM에서는 800 ~ 1280 사이의 값을 추천합니다. 1024로 시작하겠습니다.
-TARGET_LONG_EDGE = 640
+TARGET_LONG_EDGE = 384
 # --------------------
 
 def preprocess_dataset():
