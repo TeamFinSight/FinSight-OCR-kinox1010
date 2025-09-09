@@ -71,7 +71,6 @@ class UltraFastDataset(Dataset):
         self.class_to_idx = {name: i + 1 for i, name in enumerate(class_names)}
         self.idx_to_class = {i + 1: name for i, name in enumerate(class_names)} # --- [추가] --- 클래스 이름 확인용
         self.type_map = type_map
-        
         self.transform = transforms.Compose([
             transforms.ToTensor()
         ])
