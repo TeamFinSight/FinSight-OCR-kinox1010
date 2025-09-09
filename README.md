@@ -99,3 +99,18 @@
 - Epochs 는 4회 진행되었으며 mAP : 0.71292 , mAP50 : 0.96003 로 확인됨
 ![ResNet34+RetinaNet](https://www.notion.so/image/attachment%3A7d658aed-2a4a-493d-ad5e-edb1092acc88%3Aimage.png?table=block&id=26592c5a-6f62-808b-9083-e0dc31aa9cf0&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
 - 3 Epochs 때보다는 손글씨 검출 성능은 올라갔지만 라벨링 성능과 전체적으로 검출하는 것은 약함
+
+## 9월 5일 메인 컴퓨터 학습 진행 결과
+- 10 Epochs 학습 진행 결과 mAP50 : 0.93 ~ 0.94 사이로 확인 | mAP : 0.67
+- 엄격한 점수 기준인 mAP 의 성능이 0.90 을 넘지못하는 것을 보아 과적합 상태로 예상됨
+- 여러개의 동일한 클래스의 바운딩박스가 수십개 겹치는 구간도 있으며, 서로 다른 두 개의 클래스가 겹치는 부분도 있음
+![ResNet34+RetinaNet_4060](https://www.notion.so/image/attachment%3Ad0035d81-f3cc-4542-b9cb-705aa7ca31c3%3Aimage.png?table=block&id=26992c5a-6f62-800c-9b5e-cbc5b0a8d795&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
+- 사용하기에는 부족한 성능으로서 해당 학습 모델은 과적합이 맞다고 생각됨
+
+## 9월 5일 학원 컴퓨터 학습 진행 결과
+- 3 Epochs 가 완료된 모델이며 1 Epochs 당 Step 수는 800
+![ResNet18+RetinaNet_1650](https://www.notion.so/image/attachment%3A81a9ea0c-8e41-4873-abcb-5de055974f84%3Aimage.png?table=block&id=26592c5a-6f62-8018-a950-d46e2b3d6c0b&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
+- mAP50 의 경우 약 0.95 정도의 점수가 보이며, mAP 의 경우 0.66 의 점수를 보임
+- ResNet18 이 ResNet34 보다 비교적 적은 레이어로 인해 정밀도가 낮은데 mAP 점수 또한 낮음
+![ResNet18+RetinaNet_1650](https://www.notion.so/image/attachment%3A7d658aed-2a4a-493d-ad5e-edb1092acc88%3Aimage.png?table=block&id=26592c5a-6f62-808b-9083-e0dc31aa9cf0&spaceId=89642cca-5ede-4074-9b26-ecde57fbb0d3&width=2000&userId=&cache=v2)
+- 단 검출 성능은 거의 비슷하게 추출됨, 속도면에서는 확실히 ResNet34 보다 빠르며 이후 학습은 모두 메인컴퓨터와 학원컴퓨터 전부 ResNet18 + RetinaNet 으로 통일하기로 함
